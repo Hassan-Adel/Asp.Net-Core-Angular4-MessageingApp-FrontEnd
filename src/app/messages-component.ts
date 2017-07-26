@@ -4,9 +4,10 @@ import { Component } from '@angular/core';
     selector: 'messages',
     template: `
     <div *ngFor="let message of messages">
-    <md-card>
-    {{message.text}} - By : {{message.owner}}
-    </md-card>
+        <md-card class="mt-8">
+            <md-card-title>{{message.owner}}</md-card-title> 
+            <md-card-content>{{message.text}}</md-card-content>
+        </md-card>
     <div>
     `
 })
