@@ -1,3 +1,4 @@
+import { NavComponent } from './nav.component';
 import { NgModule }      from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -11,7 +12,7 @@ import { FormsModule } from "@angular/forms";
 
 @NgModule({
   imports:      [ BrowserModule, HttpModule, MaterialModule, BrowserAnimationsModule, FormsModule ],
-  declarations: [ AppComponent, MessagesComponent, NewMessageComponent ],
+  declarations: [ AppComponent, MessagesComponent, NewMessageComponent, NavComponent ],
   bootstrap:    [ AppComponent ],
   providers: [ WebService ]
 })
