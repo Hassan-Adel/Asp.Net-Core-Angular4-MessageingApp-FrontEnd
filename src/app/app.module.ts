@@ -7,9 +7,10 @@ import { AppComponent }  from './app.component';
 import { MessagesComponent } from './messages-component';
 import { WebService } from './web.service';
 import { NewMessageComponent } from "./new-message.component";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
-  imports:      [ BrowserModule, HttpModule, MaterialModule, BrowserAnimationsModule ],
+  imports:      [ BrowserModule, HttpModule, MaterialModule, BrowserAnimationsModule, FormsModule ],
   declarations: [ AppComponent, MessagesComponent, NewMessageComponent ],
   bootstrap:    [ AppComponent ],
   providers: [ WebService ]
