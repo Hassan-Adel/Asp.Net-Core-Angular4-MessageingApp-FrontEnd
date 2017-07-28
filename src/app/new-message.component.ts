@@ -10,7 +10,7 @@ import { WebService } from './web.service';
                 <input [(ngModel)]="message.owner" mdInput placeholder="Name"/>
             </md-input-container>
              <md-input-container>
-                <textarea [(ngModel)]="message.test" mdInput placeholder="Message"></textarea>
+                <textarea [(ngModel)]="message.text" mdInput placeholder="Message"></textarea>
             </md-input-container>
             <md-card-actions>
             <button (click)="post()" md-button color="primary">POST</button>
@@ -23,9 +23,9 @@ export class NewMessageComponent{
     constructor(private webService : WebService) {}
     message={
         owner:"",
-        test:""
+        text:""
     };
    post(){
-       console.log(this.message);
+       this.webService.postMessage(this.message);
    }
 }
