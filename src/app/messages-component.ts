@@ -21,8 +21,8 @@ export class MessagesComponent {
     ngOnInit(){
              var name = this.route.snapshot.params.name;
              this.webService.getMessages(name);
-             // Subscribing to the subject in the webService so we'll get the messages array through it
-             this.webService.messageSubject.subscribe(incommingMessages => {
+             // Subscribing to the Observable in the webService so we'll get the messages array through it
+             this.webService.messages.subscribe(incommingMessages => {
                  this.messages = incommingMessages;
              });
         }

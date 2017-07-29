@@ -8,11 +8,16 @@ import { Subject } from 'rxjs/Rx';
 @Injectable()
 
 export class WebService {
+
     BASE_URL = 'http://localhost:22570/api';
-    private messages: any[];
+
+    private messageStore: any[];
 
     // A subject allows observers to subscribe to it. And in this case, we can send our messages array through it whenever an update through an HTTP request occurs. 
-    messageSubject = new Subject();
+    private messageSubject = new Subject();
+
+    // Exposing the Observable instead of the subject for added security (you can pass data to subject but not observable)
+    messages = this.messageSubject.asObservable();
 
     constructor(private http: Http, private snackBarError: MdSnackBar) {
         this.getMessages(null);
