@@ -1,7 +1,7 @@
 <md-card class="mt-8">
    <form [formGroup]="form" (ngSubmit)="onSubmit()"> 
         <md-input-container>
-            <input style="width:350px" mdInput placeholder="First Name" formControlName="firstName"/>
+            <input style="width:350px" [ngClass]="{'error': form.controls.firstName.invalid && form.controls.firstName.touched}" mdInput placeholder="First Name" formControlName="firstName"/>
         </md-input-container>
 
         <md-input-container>
