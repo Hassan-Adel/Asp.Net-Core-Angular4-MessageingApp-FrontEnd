@@ -3,13 +3,19 @@ import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import { MdSnackBar } from "@angular/material";
+import { Subject } from 'rxjs/Rx';
 
 @Injectable()
+
 export class WebService {
     BASE_URL = 'http://localhost:22570/api';
-    messages: any[];
+    private messages: any[];
+
+    // A subject allows observers to subscribe to it. And in this case, we can send our messages array through it whenever an update through an HTTP request occurs. 
+    messageSubject = new Subject();
+
     constructor(private http: Http, private snackBarError: MdSnackBar) {
-        this.getMessages();
+        this.getMessages(null);
     }
 
     /**
@@ -17,15 +23,18 @@ export class WebService {
      * But it will just await on the response so that we can then set its response to 
      * the Messages Array inside the web service.
      */
-    async getMessages() {
-        try {
-            var response = await this.http.get(this.BASE_URL + '/messages').toPromise();
+    getMessages(user: string) {
+        // It uses a slash plus user name if the user is valid. Otherwise it will use an empty character if it's not valid. 
+        user = (user) ? '/' + user : '';
+        this.http.get(this.BASE_URL + '/messages' + user).subscribe(
+            response => {
             this.messages = response.json();
-        } catch (error) {
-            this.handleError("Unable to get messages");
-        }
-
+            this.messageSubject.next(this.messages);
+        }, error => {
+            this.handleError("Unable to get messages")
+        });
     }
+
     async postMessage(message: any) {
         try {
             var response = await this.http.post(this.BASE_URL + '/messages', message).toPromise();
