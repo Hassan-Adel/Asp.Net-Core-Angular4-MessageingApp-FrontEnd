@@ -9,3 +9,6 @@ body{
 .mt-8{
   margin-top: 8px;
 }
+.cursor{
+  cursor: pointer;
+}
