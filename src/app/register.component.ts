@@ -15,15 +15,20 @@ export class RegisterComponent  {
         //now we need to define our model. 
         this.form = fromBuilder.group({
             firstName: ['', Validators.required],   //Initial value
-            lastName: '',
-            email: '',
-            password: '',
-            confirmPassword: ''
+            lastName: ['', Validators.required],
+            email: ['', Validators.required],
+            password: ['', Validators.required],
+            confirmPassword: ['', Validators.required],
         });
     }
 
     onSubmit(){
         console.log(this.form.valid);
+        console.log(this.form.controls);
+    }
+
+    isValid(control:any){
+        return this.form.controls[control].invalid && this.form.controls[control].touched;
     }
 
 }
