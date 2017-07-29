@@ -1,4 +1,3 @@
-import { async } from '@angular/core/testing';
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
@@ -33,17 +32,27 @@ export class WebService {
         user = (user) ? '/' + user : '';
         this.http.get(this.BASE_URL + '/messages' + user).subscribe(
             response => {
-            this.messages = response.json();
-            this.messageSubject.next(this.messages);
+            this.messageStore = response.json();
+            this.messageSubject.next(this.messageStore);
         }, error => {
             this.handleError("Unable to get messages")
         });
     }
 
+    /**
+     * So we're not using messageSubject to get a new value such as our new message but 
+     * we are using it in order to get the postMessage event as its being broadcasted. 
+     * But in the case where the value being broadcasted wasn't the memory address, 
+     * it would be useful or on the case where second observers subscribes after the 
+     * first value is broadcasted they would need to know of any new message posts, 
+     * so we would have to call messageSubject.next as we are now
+     * @param message 
+     */
     async postMessage(message: any) {
         try {
             var response = await this.http.post(this.BASE_URL + '/messages', message).toPromise();
-            this.messages.push(response.json());
+            this.messageStore.push(response.json());
+            this.messageSubject.next(this.messageStore);
         } catch (error) {
             this.handleError("Unable to post message");
         }

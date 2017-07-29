@@ -5,7 +5,7 @@ import { ActivatedRoute } from "@angular/router";
 @Component({
     selector: 'messages',
     template: `
-    <div *ngFor="let message of messages">
+    <div *ngFor="let message of webService.messages | async">
         <md-card class="mt-8">
             <md-card-title [routerLink]="['/messages', message.owner]" class="cursor">{{message.owner}}</md-card-title> 
             <md-card-content>{{message.text}}</md-card-content>
@@ -15,15 +15,9 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class MessagesComponent {
 
-    messages:any;
-
     constructor(private webService: WebService, private route: ActivatedRoute) { }
     ngOnInit(){
              var name = this.route.snapshot.params.name;
              this.webService.getMessages(name);
-             // Subscribing to the Observable in the webService so we'll get the messages array through it
-             this.webService.messages.subscribe(incommingMessages => {
-                 this.messages = incommingMessages;
-             });
         }
 }
