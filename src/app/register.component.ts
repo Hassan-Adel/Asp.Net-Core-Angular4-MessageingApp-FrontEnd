@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from "./auth.service";
 
 @Component({
     moduleId: module.id,
@@ -11,7 +12,7 @@ export class RegisterComponent  {
     form:any;
 
     // inside the constructor let's create a formbuilder.group that will take in our model object and we'll set that to our form property
-    constructor(private fromBuilder: FormBuilder){
+    constructor(private fromBuilder: FormBuilder, private auth: AuthService){
         //now we need to define our model. 
         //the first parameter we pass in is our model. The second parameter we can pass in is a validator for that model
         this.form = fromBuilder.group({
@@ -25,7 +26,7 @@ export class RegisterComponent  {
 
     onSubmit(){
         console.log(this.form.errors);
-        console.log(this.form.controls);
+        this.auth.register(this.form.value);
     }
 
     isValid(control:any){

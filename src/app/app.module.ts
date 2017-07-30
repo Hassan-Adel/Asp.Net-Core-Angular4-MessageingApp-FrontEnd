@@ -12,6 +12,7 @@ import { MessagesComponent } from './messages-component';
 import { WebService } from './web.service';
 import { NewMessageComponent } from "./new-message.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { AuthService } from "./auth.service";
 
 var routes=[
   { path: '', component: HomeComponent },
@@ -24,6 +25,6 @@ var routes=[
   imports:      [ BrowserModule, HttpModule, MaterialModule, BrowserAnimationsModule, FormsModule, ReactiveFormsModule, RouterModule.forRoot(routes) ],
   declarations: [ AppComponent, MessagesComponent, NewMessageComponent, NavComponent, HomeComponent, RegisterComponent ],
   bootstrap:    [ AppComponent ],
-  providers: [ WebService ]
+  providers: [ WebService, AuthService ]
 })
 export class AppModule { }
