@@ -1,8 +1,6 @@
-import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/toPromise';
-import { MdSnackBar } from "@angular/material";
-import { Subject } from 'rxjs/Rx';
+import { Http } from '@angular/http';
+import { Router } from '@angular/router';
 
 @Injectable()
 
@@ -10,16 +8,33 @@ export class AuthService {
 
     BASE_URL = 'http://localhost:22570/auth';
 
-    private messageStore: any[];
+    NAME_KEY = 'name';
+    TOKEN_KEY = 'token';
 
 
-    constructor(private http: Http, private snackBarError: MdSnackBar) {
-       
+    constructor(private http: Http, private router: Router) {}
+
+    get name(){
+        return localStorage.getItem(this.NAME_KEY);
+    }
+
+    //if this exists, we're returning True. If I didn't use this double negative, we'd actually get the value, which is not exactly what we want. We want it to return either True or False.
+    get isAuthenticated() {
+        return !!localStorage.getItem(this.TOKEN_KEY);
     }
 
     register(user: any){
         delete user.confirmPassword;
-        this.http.post(this.BASE_URL + '/register', user).subscribe();
+        this.http.post(this.BASE_URL + '/register', user).subscribe(res => {
+            var authResponse = res.json();
+
+            if(!authResponse.token)
+            return;
+
+            localStorage.setItem(this.TOKEN_KEY, authResponse.token)
+            localStorage.setItem(this.NAME_KEY, authResponse.firstName)
+            this.router.navigate(['/']);
+        });
     }
     
 }
