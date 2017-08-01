@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import { MdSnackBar } from "@angular/material";
 import { Subject } from 'rxjs/Rx';
+import { AuthService } from './auth.service';
 
 @Injectable()
 
@@ -18,7 +19,7 @@ export class WebService {
     // Exposing the Observable instead of the subject for added security (you can pass data to subject but not observable)
     messages = this.messageSubject.asObservable();
 
-    constructor(private http: Http, private snackBarError: MdSnackBar) {
+    constructor(private http: Http, private snackBarError: MdSnackBar, private auth: AuthService) {
         this.getMessages(null);
     }
 
@@ -57,6 +58,10 @@ export class WebService {
             this.handleError("Unable to post message");
         }
 
+    }
+
+    getUser(){
+        return this.http.get(this.BASE_URL + 'users/me', this.auth.tokenHeaders).map(res => res.json());
     }
 
     private handleError(error: any) {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, RequestOptions, Headers } from '@angular/http';
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -21,6 +21,11 @@ export class AuthService {
     //if this exists, we're returning True. If I didn't use this double negative, we'd actually get the value, which is not exactly what we want. We want it to return either True or False.
     get isAuthenticated() {
         return !!localStorage.getItem(this.TOKEN_KEY);
+    }
+
+    get tokenHeaders() {
+        var header = new Headers({'Authorization': 'Bearer' + localStorage.getItem(this.TOKEN_KEY)});
+        return new RequestOptions({ headers: header});
     }
 
     login(loginData: any){

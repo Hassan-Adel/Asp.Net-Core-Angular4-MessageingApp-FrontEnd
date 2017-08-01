@@ -23,7 +23,7 @@ export class LoginComponent {
 
     loginForm:any;
 
-    constructor(private fromBuilder: FormBuilder,private auth: AuthService) {
+    constructor(private fromBuilder: FormBuilder, private auth: AuthService) {
         this.loginForm = fromBuilder.group({
             email: ['', Validators.required],
             password: ['', Validators.required],
