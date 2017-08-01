@@ -13,17 +13,19 @@ import { WebService } from './web.service';
 import { NewMessageComponent } from "./new-message.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AuthService } from "./auth.service";
+import { LoginComponent } from "./login.component";
 
 var routes=[
   { path: '', component: HomeComponent },
   { path: 'messages', component: MessagesComponent },
   { path: 'messages/:name', component: MessagesComponent },
-  { path: 'register', component: RegisterComponent }
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent }
 ];
 
 @NgModule({
   imports:      [ BrowserModule, HttpModule, MaterialModule, BrowserAnimationsModule, FormsModule, ReactiveFormsModule, RouterModule.forRoot(routes) ],
-  declarations: [ AppComponent, MessagesComponent, NewMessageComponent, NavComponent, HomeComponent, RegisterComponent ],
+  declarations: [ AppComponent, MessagesComponent, NewMessageComponent, NavComponent, HomeComponent, RegisterComponent, LoginComponent ],
   bootstrap:    [ AppComponent ],
   providers: [ WebService, AuthService ]
 })

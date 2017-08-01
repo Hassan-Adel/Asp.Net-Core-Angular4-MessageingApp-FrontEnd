@@ -5,7 +5,7 @@ import { AuthService } from "./auth.service";
 @Component({
     moduleId: module.id,
   selector: 'register',
-  templateUrl:'register.component.html',
+  templateUrl: 'register.component.html',
   styles : [`.error{background-color: #fff0f0}`]
 })
 export class RegisterComponent  { 
