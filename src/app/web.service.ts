@@ -61,7 +61,7 @@ export class WebService {
     }
 
     getUser(){
-        return this.http.get(this.BASE_URL + 'users/me', this.auth.tokenHeaders).map(res => res.json());
+        return this.http.get(this.BASE_URL + '/users/me', this.auth.tokenHeaders).map(res => res.json());
     }
 
     private handleError(error: any) {
