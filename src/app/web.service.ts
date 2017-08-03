@@ -64,6 +64,10 @@ export class WebService {
         return this.http.get(this.BASE_URL + '/users/me', this.auth.tokenHeaders).map(res => res.json());
     }
 
+    saveUser(userData: any){
+        return this.http.post(this.BASE_URL + '/users/me', userData, this.auth.tokenHeaders).map(res => res.json());
+    }
+
     private handleError(error: any) {
         console.error(error);
         //close : add close button .. duration : disapear after 2 seconds
